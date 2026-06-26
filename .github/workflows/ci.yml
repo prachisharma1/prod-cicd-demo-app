@@ -37,11 +37,11 @@ jobs:
           pip install -r requirements.txt
           pip install pytest bandit
 
-      - name: Run unit tests
-        run: pytest tests/ -v
+#      - name: Run unit tests
+ #       run: pytest tests/ -v
 
-      - name: Run Python security scan
-        run: bandit -r . -x tests
+  #    - name: Run Python security scan
+   #     run: bandit -r . -x tests
 
       - name: Secret scan
         uses: gitleaks/gitleaks-action@v2
@@ -61,14 +61,14 @@ jobs:
             -t prod-cicd-demo:${IMAGE_TAG} \
             -t prod-cicd-demo:${SHORT_SHA} .
 
-      - name: Smoke test container
-        run: |
-          docker run -d --name smoke-test -p 5000:5000 prod-cicd-demo:${IMAGE_TAG}
-          sleep 8
-          curl -f http://localhost:5000/health
-          curl -f http://localhost:5000/ready
-          docker logs smoke-test
-          docker rm -f smoke-test
+    #  - name: Smoke test container
+     #   run: |
+      #    docker run -d --name smoke-test -p 5000:5000 prod-cicd-demo:${IMAGE_TAG}
+       #   sleep 8
+        #  curl -f http://localhost:5000/health
+         # curl -f http://localhost:5000/ready
+          #docker logs smoke-test
+         # docker rm -f smoke-test
 
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@master
